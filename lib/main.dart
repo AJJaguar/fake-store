@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyqx_test_task/app/app_router.dart';
 import 'package:lyqx_test_task/di/di.dart';
 import 'package:lyqx_test_task/features/login/domain/usecases/add_user_usecase.dart';
+import 'package:lyqx_test_task/features/product/domain/usecases/get_product_list_usecase.dart';
+import 'package:lyqx_test_task/features/product/presentation/bloc/product_bloc.dart';
 
 import 'features/login/presentation/bloc/login_bloc.dart';
 
@@ -21,6 +23,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginBloc(
             gi<AddUserEventUseCase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(
+            gi<GetProductListEventUseCase>(),
           ),
         ),
       ],

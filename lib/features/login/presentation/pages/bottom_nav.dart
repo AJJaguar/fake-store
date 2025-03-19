@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lyqx_test_task/features/login/presentation/pages/home_page.dart';
+import 'package:lyqx_test_task/features/product/presentation/pages/home_page.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

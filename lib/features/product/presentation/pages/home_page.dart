@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lyqx_test_task/features/product/data/models/product_model.dart';
+import 'package:lyqx_test_task/features/product/presentation/bloc/product_bloc.dart';
 // import 'package:practice_1/main.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late ProductBloc productBloc;
+  @override
+  void initState() {
+    super.initState();
+    // productBloc = ProductBloc(_getProductListEventUseCase)
+    context.read<ProductBloc>().add(const GetProductListEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,38 +36,33 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              const SizedBox(height: 32),
-              const Text(
-                'Fake Store',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 16),
-              ...List.generate(3, (i) {
-                final item = ItemModel(
-                  image: 'lol',
-                  title: '“Awaken, My Love!”',
-                  subtitle: 'Childish Gambino',
-                  rating: '4.25',
-                  amount: '\$19.99',
-                );
-                return InkWell(
-                  onTap: () => GoRouter.of(context).push(
-                    '/product_page',
-                    extra: item,
+          child: BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 32),
+                  const Text(
+                    'Fake Store',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  child: ItemWidget(
-                    item: item,
+                  const SizedBox(height: 16),
+                  Expanded(
+                    // Ensures ListView takes available space
+                    child: ListView.builder(
+                      itemCount: state
+                          .products!.length, // Replace with your data length
+                      itemBuilder: (context, index) {
+                        return ItemWidget(product: state.products![index] as ProductModel);
+                      },
+                    ),
                   ),
-                );
-              })
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -132,8 +138,8 @@ class ItemModel {
 }
 
 class ItemWidget extends StatefulWidget {
-  final ItemModel item;
-  const ItemWidget({super.key, required this.item});
+  final ProductModel product;
+  const ItemWidget({super.key, required this.product});
 
   @override
   State<ItemWidget> createState() => _ItemWidgetState();
@@ -171,35 +177,33 @@ class _ItemWidgetState extends State<ItemWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.item.title,
+                      widget.product.title,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                     ),
-                    Text(
-                      widget.item.subtitle,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-
+                    // Text(
+                    //   widget.product.subtitle,
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w600,
+                    //     fontSize: 12,
+                    //   ),
+                    // ),
                     Row(
                       children: [
                         Icon(Icons.star, size: 14),
-                        Text(
-                          widget.item.rating,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
+                        // Text(
+                        //   widget.product.rating,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.w600,
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
                       ],
                     ),
-
                     Text(
-                      widget.item.amount,
+                      widget.product.price.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
