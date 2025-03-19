@@ -17,14 +17,14 @@ class UserDataSourceImpl implements UserDataSource {
     try {
       // Define the user data to be sent
       final userData = {
-        "id": 0,
+        // "id": 0,
         "username": 'johnd',
-        "email": 'john@gmail.com',
+        // "email": 'john@gmail.com',
         "password": 'm38rmF\$',
       };
 
       Response response = await dio.post(
-        'https://fakestoreapi.com/users',
+        'https://fakestoreapi.com/auth/login',
         data: userData,
         options: Options(headers: {
           'Content-Type': 'application/json',
@@ -34,8 +34,9 @@ class UserDataSourceImpl implements UserDataSource {
       final json = response.data;
 
       print('success');
-
-      return json['id'].toString();
+      final token = json['token'].toString();
+      print(token);
+      return token;
     } catch (e) {
       print("Error adding user: $e");
       throw Exception("Failed to add user");
