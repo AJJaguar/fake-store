@@ -36,18 +36,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     result.fold(
       (failure) =>
           emit(ProductEventFailed(products: state.products, failure: failure)),
-      (products) =>
-          emit(ProductLoaded(products: products)), // Use fetched products
+      (products) => emit(
+        ProductLoaded(products: products),
+      ), // Use fetched products
     );
-
-    // await _getProductListEventUseCase(NoParams()).then(
-    //   (value) => value.fold(
-    //       (failure) => emit(
-    //             ProductEventFailed(products: state.products, failure: failure),
-    //           ), (products) {
-    //     final newState = ProductLoaded(products: products);
-    //     emit(newState);
-    //   }),
-    // );
   }
 }

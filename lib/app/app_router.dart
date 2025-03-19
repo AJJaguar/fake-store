@@ -2,7 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lyqx_test_task/app/app_page_transition.dart';
 import 'package:lyqx_test_task/features/login/presentation/pages/bottom_nav.dart';
 import 'package:lyqx_test_task/features/login/presentation/pages/login_page.dart';
-
+import 'package:lyqx_test_task/features/product/data/models/product_model.dart';
+import 'package:lyqx_test_task/features/product/presentation/pages/product_details_page.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -22,16 +23,18 @@ final GoRouter router = GoRouter(
         child: HomeScreen(),
       ),
     ),
-    // GoRoute(
-    //   path: '/product_page',
-    //   pageBuilder: (context, state) => buildPageWithAnimation(
-    //     context: context,
-    //     state: state,
-    //     child: ProductPage(
-    //       item: state.extra as ItemModel,
-    //     ),
-    //   ),
-    // ),
+    GoRoute(
+        path: '/product_details',
+        pageBuilder: (context, state) {
+          final product = state.extra as ProductModel;
+          return buildPageWithAnimation(
+            context: context,
+            state: state,
+            child: ProductDetailsPage(
+              product: product,
+            ),
+          );
+        }),
   ],
 );
 
