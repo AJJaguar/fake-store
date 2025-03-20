@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lyqx_test_task/features/cart/presentation/pages/cart_page.dart';
 import 'package:lyqx_test_task/features/product/presentation/pages/home_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,9 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     HomePage(),
     HomePage(),
-    HomePage(),
     // WishlistPage(),
-    // CartPage(),
+    CartPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,

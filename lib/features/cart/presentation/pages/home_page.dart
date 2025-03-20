@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late ProductBloc productBloc;
   @override
   void initState() {
     super.initState();
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                         itemCount: state.products?.length ??
                             0, // Replace with your data length
                         itemBuilder: (context, index) {
-                          return ItemWidget(
+                          return ProductWidget(
                             product: state.products?[index] as ProductModel,
                           );
                         },
@@ -127,15 +128,15 @@ class AppBarLeadingWidget extends StatelessWidget {
   }
 }
 
-class ItemWidget extends StatefulWidget {
+class ProductWidget extends StatefulWidget {
   final ProductModel product;
-  const ItemWidget({super.key, required this.product});
+  const ProductWidget({super.key, required this.product});
 
   @override
-  State<ItemWidget> createState() => _ItemWidgetState();
+  State<ProductWidget> createState() => _ProductWidgetState();
 }
 
-class _ItemWidgetState extends State<ItemWidget> {
+class _ProductWidgetState extends State<ProductWidget> {
   bool _isFavorite = false;
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,7 @@ class _ItemWidgetState extends State<ItemWidget> {
           );
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21, vertical: 21),
+          padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 21),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: const Color(0XFFF2F2F2),

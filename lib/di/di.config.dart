@@ -12,6 +12,12 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:lyqx_test_task/di/network_module.dart' as _i976;
+import 'package:lyqx_test_task/features/cart/data/repositories/user_repository_impl.dart'
+    as _i15;
+import 'package:lyqx_test_task/features/cart/domain/repositories/cart_repository.dart'
+    as _i734;
+import 'package:lyqx_test_task/features/cart/domain/usecases/get_cart_list_usecase.dart'
+    as _i575;
 import 'package:lyqx_test_task/features/login/data/datasources/user_data_source.dart'
     as _i963;
 import 'package:lyqx_test_task/features/login/data/repositories/user_repository_impl.dart'
@@ -48,12 +54,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i879.UserRepositoryImpl(gh<_i963.UserDataSource>()));
     gh.lazySingleton<_i171.ProductDataSource>(
         () => _i171.ProductDataSourceImpl(dio: gh<_i361.Dio>()));
+    gh.lazySingleton<_i734.CartRepository>(
+        () => _i15.CartRepositoryImpl(gh<_i171.ProductDataSource>()));
     gh.lazySingleton<_i563.ProductRepository>(
         () => _i788.ProductRepositoryImpl(gh<_i171.ProductDataSource>()));
     gh.factory<_i203.AddUserEventUseCase>(
         () => _i203.AddUserEventUseCase(gh<_i720.UserRepository>()));
     gh.factory<_i463.GetProductListEventUseCase>(
         () => _i463.GetProductListEventUseCase(gh<_i563.ProductRepository>()));
+    gh.factory<_i575.GetCartListEventUseCase>(
+        () => _i575.GetCartListEventUseCase(gh<_i734.CartRepository>()));
     return this;
   }
 }
