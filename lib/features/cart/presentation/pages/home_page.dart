@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyqx_test_task/features/product/data/models/product_model.dart';
 import 'package:lyqx_test_task/features/product/presentation/bloc/product_bloc.dart';
-// import 'package:practice_1/main.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
